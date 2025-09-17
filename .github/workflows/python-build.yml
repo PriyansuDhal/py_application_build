@@ -18,7 +18,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Upgrade pip and install build + pytest
         run: |
@@ -36,8 +36,8 @@ jobs:
       - name: Create artifact folder
         run: |
           mkdir -p artifacts
-          cp -r dist artifacts/ || true
-          cp results.xml artifacts/ || true
+          cp -r dist artifacts/
+          cp results.xml artifacts/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -60,7 +60,11 @@ jobs:
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v0.1.0
-          name: "v0.1.0"
+          tag_name: v0.2.0
+          name: "v0.2.0"
           body: "Python application build and test artifacts."
           files: artifacts/**
+
+
+
+
