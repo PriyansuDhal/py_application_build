@@ -1,0 +1,66 @@
+name: Python Application Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Upgrade pip and install build + pytest
+        run: |
+          python -m pip install --upgrade pip
+          pip install build pytest
+
+      - name: Run tests (JUnit XML)
+        run: |
+          pytest --maxfail=1 --disable-warnings -q --junitxml=results.xml
+
+      - name: Build package
+        run: |
+          python -m build
+
+      - name: Create artifact folder
+        run: |
+          mkdir -p artifacts
+          cp -r dist artifacts/ || true
+          cp results.xml artifacts/ || true
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-app-artifacts
+          path: artifacts/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: python-app-artifacts
+          path: artifacts/
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.1.0
+          name: "v0.1.0"
+          body: "Python application build and test artifacts."
+          files: artifacts/**
