@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.008" timestamp="2025-09-17T11:05:25.814016+05:30" hostname="priyansus-MacBook-Air.local"><testcase classname="test_sample" name="test_example" time="0.000" /></testsuite></testsuites>

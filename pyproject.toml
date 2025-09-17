@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "py_application_build"
+version = "0.1.0"
+description = "Sample Python Application Build"
+authors = [
+  { name = "Priyansu Dhal" }
+]
+dependencies = []

@@ -1,0 +1,6 @@
+pyproject.toml
+test_sample.py
+py_application_build.egg-info/PKG-INFO
+py_application_build.egg-info/SOURCES.txt
+py_application_build.egg-info/dependency_links.txt
+py_application_build.egg-info/top_level.txt
